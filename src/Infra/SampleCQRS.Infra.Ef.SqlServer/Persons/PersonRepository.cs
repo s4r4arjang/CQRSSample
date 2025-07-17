@@ -1,6 +1,6 @@
 ﻿using EndPoint.Api.Domain.Persons;
 using SampleCQRS.Core.Domain.Contracts;
-//
+
 namespace EndPoint.Api.Infra.Persons
 {
     public class PersonRepository : IPersonRepository
