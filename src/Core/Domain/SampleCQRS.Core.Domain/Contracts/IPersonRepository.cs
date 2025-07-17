@@ -6,5 +6,7 @@ public interface IPersonRepository
 {
     void AddPerson(Person person);
     Task<int> SaveChange(CancellationToken cancellationToken=default);
-   
+    Person GetPerson(int Id);
+   Task<Person>  GetPersonAsync(int Id);
+
 }

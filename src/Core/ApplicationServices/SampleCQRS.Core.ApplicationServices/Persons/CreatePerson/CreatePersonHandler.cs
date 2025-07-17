@@ -1,10 +1,11 @@
 ﻿using EndPoint.Api.Domain.Persons;
+using MediatR;
 using SampleCQRS.Core.Domain.Common;
 using SampleCQRS.Core.Domain.Contracts;
 
 namespace SampleCQRS.Core.ApplicationServices.Persons.CreatePerson;
 
-public class CreatePersonHandler : ICommandHandler<CreatePersonCommand, CreatePersonResult>
+public class CreatePersonHandler : IRequestHandler<CreatePersonCommand, CreatePersonResult>
 {
     private readonly IPersonRepository personRepository;
 
@@ -12,17 +13,18 @@ public class CreatePersonHandler : ICommandHandler<CreatePersonCommand, CreatePe
     {
         this.personRepository = personRepository;
     }
-    public async Task<CreatePersonResult> Handle(CreatePersonCommand command)
+    public async Task<CreatePersonResult> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
     {
         var person = new Person()
         {
-            Name = command.Name
+            Name = request.Name
         };
 
         personRepository.AddPerson(person);
-       await personRepository.SaveChange();
+        await personRepository.SaveChange();
+
         return new CreatePersonResult() { PersonId = person.Id };
-
-
     }
+
+
 }

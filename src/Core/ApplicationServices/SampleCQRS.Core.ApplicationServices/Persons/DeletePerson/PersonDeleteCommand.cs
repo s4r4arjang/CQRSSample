@@ -1,6 +1,8 @@
-﻿namespace SampleCQRS.Core.ApplicationServices.Persons.DeletePerson
+﻿using MediatR;
+
+namespace SampleCQRS.Core.ApplicationServices.Persons.DeletePerson
 {
-    public class PersonDeleteCommand : ICommand
+    public class PersonDeleteCommand : IRequest
     {
     }
 }

@@ -1,19 +1,25 @@
 using EndPoint.Api.Infra.Persons;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SampleCQRS.Core.ApplicationServices.Persons.CreatePerson;
 using SampleCQRS.Core.ApplicationServices.Persons.GetPerson;
 using SampleCQRS.Core.Domain.Common;
 using SampleCQRS.Core.Domain.Contracts;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-//
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(CreatePersonCommand).Assembly);
+});
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddScoped<ICommandHandler<CreatePersonCommand , CreatePersonResult>,CreatePersonHandler>();
+//builder.Services.AddScoped<ICommandHandler<CreatePersonCommand , CreatePersonResult>,CreatePersonHandler>();
 //builder.Services.AddScoped<ICommandHandler<EditPersonCommand, EditPersonResult>, PersonService3>();
 //builder.Services.AddScoped<ICommandHandler<GetAllPersonQuery, GetAllPersonQueryResult>, PersonService3>();
 //builder.Services.AddScoped<ICommandHandler<GetPersonByIdQuery, GetPersonByIdQueryResult>, PersonService3>();
@@ -23,6 +29,7 @@ builder.Services.AddDbContext<PersonContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+
 
 // Register Swagger services
 builder.Services.AddEndpointsApiExplorer();

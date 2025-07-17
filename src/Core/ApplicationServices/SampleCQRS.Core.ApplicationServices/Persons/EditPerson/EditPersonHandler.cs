@@ -1,9 +1,15 @@
-﻿namespace SampleCQRS.Core.ApplicationServices.Persons.EditPerson;
+﻿using MediatR;
+using SampleCQRS.Core.ApplicationServices.Persons.CreatePerson;
 
-public class EditPersonHandler : ICommandHandler<EditPersonCommand, EditPersonResult>
+namespace SampleCQRS.Core.ApplicationServices.Persons.EditPerson;
+
+public class EditPersonHandler : IRequestHandler<EditPersonCommand, EditPersonResult>
 {
-    public Task<EditPersonResult> Handle(EditPersonCommand command)
+    public Task<EditPersonResult> Handle(EditPersonCommand request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 }
+
+
+

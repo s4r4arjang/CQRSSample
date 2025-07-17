@@ -2,5 +2,6 @@
 {
     public class GetAllPersonQueryResult
     {
+        public string Name { get; set; }
     }
 }

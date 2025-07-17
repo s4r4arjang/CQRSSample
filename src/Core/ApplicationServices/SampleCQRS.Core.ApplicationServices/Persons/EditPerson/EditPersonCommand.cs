@@ -1,6 +1,8 @@
-﻿namespace SampleCQRS.Core.ApplicationServices.Persons.EditPerson
+﻿using MediatR;
+
+namespace SampleCQRS.Core.ApplicationServices.Persons.EditPerson
 {
-    public class EditPersonCommand : ICommand
+    public class EditPersonCommand : IRequest<EditPersonResult>
     {
     }
 }
