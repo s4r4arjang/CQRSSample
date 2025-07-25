@@ -1,4 +1,5 @@
 using EndPoint.Api.Infra.Persons;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SampleCQRS.Core.ApplicationServices.Persons.CreatePerson;
@@ -16,6 +17,15 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(CreatePersonCommand).Assembly);
 });
+// builder.Services.AddScoped<IValidator<CreatePersonCommand>, CreatePersonValidator>();
+
+var ass = typeof(CreatePersonValidator).Assembly;
+// ??? Validator??? FluentValidation
+builder.Services.AddValidatorsFromAssembly(ass);
+
+// ??? Pipeline Behavior ???? ??????????
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
